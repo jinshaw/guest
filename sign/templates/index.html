@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <!--<H1>LOGIN</H1>-->
+    <!--<form method="post" action="/login_action/">-->
+        <!--<input name="username"  type="text" placeholder="username"><br>-->
+        <!--<input name="password"  type="text" placeholder="password"><br>-->
+        <!--{{error}}<br>-->
+        <!--<button id="lg" type="submit" >login</button>-->
+       <!--{% csrf_token %}-->
+    <!--</form>-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <form class="form-signin" method="post" action="/login_action/">
+                    <h2 class="form-signin-heading">Login</h2>
+                    <label for="username" class="sr-only">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" autofocus="">
+                    <label for="password" class="sr-only">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                      </label>
+                    </div>
+                    {{error}}
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                     {% csrf_token %}
+                </form>
+                </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div> <!-- /container -->
+</body>
+</html>
