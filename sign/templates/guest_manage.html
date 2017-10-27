@@ -67,9 +67,16 @@
                 {% endfor %}
                 </tbody>
             </table>
-
         </div>
-
     </div>
+
+    <!--列表分页器-->
+    <div class="pagination">
+        <span class="step-links">
+            {% if guests.has_previous%}
+                <a href="?page="
+        </span>
+    </div>
+
 </body>
 </html>

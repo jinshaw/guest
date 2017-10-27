@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from sign.models import Event
 from sign.models import Guest
 from django.http import request
@@ -38,6 +39,16 @@ def event_manage(request):
 def guest_manage(request):
     guest_list = Guest.objects.all()
     username = request.session.get('usr', '')
+    paginator=Paginator(guest_list,2)
+    page=request.GET.get('page')
+    try:
+        contacts=paginator.page(page)
+    except PageNotAnInteger:
+        #如果page不是integer类型，返回第一页。
+        contacts=paginator.page(1)
+    except EmptyPage:
+        #如果page超过9999,返回最后一页的结果
+        contacts=paginator.page(paginator.num_pages)
     return render(request, "guest_manage.html", {"usr": username,"guests": guest_list})
 
 @login_required
