@@ -5,7 +5,7 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <meta charset="UTF-8">
-    <title>Guest Manage</title>
+    <title>Event Manage</title>
 </head>
 <body role="document">
     <!--<div style="float:right">-->
@@ -55,7 +55,7 @@
             <table class="table table-stripted">
                 <thead>
                 <tr>
-                    <th>id</th><th>名称</th><th>状态</th><th>地址</th><th>时间</th>
+                    <th>id</th><th>名称</th><th>状态</th><th>地址</th><th>时间</th><th>签到</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -66,6 +66,9 @@
                         <td>{{event.status}}</td>
                         <td>{{event.address}}</td>
                         <td>{{event.start_time}}</td>
+                        <td>
+                            <a href="/sign_index/{{ event.id }}" target="{{event.id}}_blank">sign</a>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -73,6 +76,22 @@
 
         </div>
 
+    </div>
+
+
+ <!--分页器-->
+    <div class="pagination">
+        <span class="step-links">
+            {% if events.has_previous %}
+                <a href="?page={{ events.previous_page_number}}">previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ events.number }} of {{ events.paginator.num_pages}}.
+            </span>
+            {% if events.has_next%}
+                <a href="?page={{ events.next_page_number}}">next</a>
+            {% endif %}
+        </span>
     </div>
 </body>
 </html>
