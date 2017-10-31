@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib import auth
@@ -64,6 +65,7 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/index/')
 
+
 @login_required
 def search_name(request):
     username = request.session.get('usr', '')
@@ -91,11 +93,12 @@ def sign_index_action(request,event_id):
     event=get_object_or_404(Event,id=event_id)
     phone=request.POST.get('phone','')
 
-    result = Guest.objects.filter(phone=phone)
+    result = Guest.objects.filter(phone=phone, event_id=event_id)
     if not result:
-        return render(request,'sign_index.html',{'event':event,'hint':'phone error.'})
+        return render(request,'sign_index.html',{'event':event,'hint':u'手机号不存在','result':result})
 
-    result = Guest.objects.get(phone=phone,event_id=event_id)
+
+    result = Guest.objects.get(phone=phone, event_id=event_id)
     if result.sign:
         return render(request,'sign_index.html',{'event':event,'hint':"user has sign in."})
     else:
